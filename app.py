@@ -171,7 +171,7 @@ else:
       st.markdown(f"### 🌸 {prod['name']}")
       st.write(f"📝 {prod.get('description', '')}")
       st.markdown(f"*💰 قیمت:* {prod['price']} IQD")
-      order_link = f"https://wa.me/9647864607927?text=Hi,%20I%20want%20to%20order%20{prod['name']}"
+      order_link = f"https://wa.me/923087669078?text=Hi,%20I%20want%20to%20order%20{prod['name']}"
       st.markdown(
           f"<a href='{order_link}' class='order-btn' target='_blank'>🛒 واٹس ایپ"
           " پر آرڈر کریں</a>",
@@ -237,7 +237,7 @@ st.markdown("---")
 # Footer & Admin Direct Link
 if is_admin:
   st.markdown("### 🔗 ٹک ٹاک بائیو کا لنک")
-  st.code("https://asma-scs-cosmetics.streamlit.app", language="text")
+  st.code("https://2hpcyp2wmtwwuappvxnccea.streamlit.app/", language="text")
   st.markdown("---")
 
 st.markdown(
