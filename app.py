@@ -64,7 +64,7 @@ st.sidebar.markdown("### 🔐 Admin Panel / ایڈمن پینل")
 password = st.sidebar.text_input(
     "پاسورڈ درج کریں (صرف ایڈمن کے لیے)", type="password"
 )
-ADMIN_PASSWORD = "KHIZARجان"
+ADMIN_PASSWORD = "khizar asma"
 
 is_admin = False
 if password:
