@@ -34,7 +34,17 @@ password = st.sidebar.text_input(
 )
 
 # Define Admin Password
-ADMIN_PASSWORD = "KHIZARجان"
+ADMIN_PASSWORD = "Khizar asma"
+
+# Password Validation Logic (Galat hone par error dega)
+is_admin = False
+if password:
+  if password == ADMIN_PASSWORD:
+    st.sidebar.success("✅ Password theek hai! Aap Admin mode mein hain.")
+    is_admin = True
+  else:
+    st.sidebar.error("❌ Galat password! Barah-e-karam sahi password darj karein.")
+    is_admin = False
 
 # App Header
 st.markdown(
@@ -46,17 +56,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.markdown("---")
-
-# Password Validation Logic
-if password:
-  if password == ADMIN_PASSWORD:
-    st.sidebar.success("✅ پاسورڈ درست ہے! آپ ایڈمن موڈ میں ہیں۔")
-    is_admin = True
-  else:
-    st.sidebar.error("❌ غلط پاسورڈ! براہ کرم درست پاسورڈ درج کریں۔")
-    is_admin = False
-else:
-  is_admin = False
 
 # ----------------- ADMIN PRODUCT UPLOAD SYSTEM -----------------
 if is_admin:
@@ -82,12 +81,12 @@ if is_admin:
           with open(img_path, "wb") as f:
             f.write(p_image.getbuffer())
           st.success(
-              f"پروڈکٹ '{p_name}' اور تصویر کامیابی کے ساتھ محفوظ ہو گئی ہے!"
+              f"Product '{p_name}' aur tasweer kamyabi ke sath save ho gayi hai!"
           )
         else:
-          st.success(f"پروڈکٹ '{p_name}' کامیابی کے ساتھ محفوظ ہو گئی ہے!")
+          st.success(f"Product '{p_name}' kamyabi ke sath save ho gayi hai!")
       else:
-        st.warning("براہ کرم کم از کم پروڈکٹ کا نام اور قیمت درج کریں۔")
+        st.warning("Barah-e-karam kam az kam product ka naam aur qeemat darj karein.")
   st.markdown("---")
 
 # ----------------- DISPLAY PRODUCTS SECTION -----------------
@@ -107,7 +106,7 @@ with col2:
   if os.path.exists("gel.jpg"):
     st.image("gel.jpg", use_column_width=True)
   else:
-    st.info("تصویر دستیاب نہیں (gel.jpg)")
+    st.info("Tasweer dastiyab nahi (gel.jpg)")
 
 st.markdown("---")
 
@@ -125,20 +124,20 @@ with col4:
   if os.path.exists("facewash.jpg"):
     st.image("facewash.jpg", use_column_width=True)
   else:
-    st.info("تصویر دستیاب نہیں (facewash.jpg)")
+    st.info("Tasweer dastiyab nahi (facewash.jpg)")
 
 st.markdown("---")
 
 if is_admin:
   st.markdown("### 🔗 ٹک ٹاک بائیو اور شیئرنگ کے لیے آفیشل لنک")
   st.markdown(
-      "یہ آپ کی ایپ کا لائیو لنک ہے۔ اسماء یہاں سے لنک کاپی کر کے ٹک ٹاک بائیو میں"
-      " لگایا کرے گی:"
+      "Yeh aap ki app ka live link hai. Asma yahan se link copy kar ke TikTok"
+      " bio mein lagaya kare gi:"
   )
   st.code("https://asma-scs-cosmetics.streamlit.app", language="text")
   st.markdown(
-      "💡 *اس لنک پر عام کسٹمرز کے لیے کوئی پاسورڈ نہیں ہوگا، وہ براہ راست چیزیں"
-      " دیکھ کر واٹس ایپ پر آرڈر کریں گے۔*"
+      "💡 *Is link par aam customers ke liye koi password nahi hoga, wo barah-e-rast"
+      " cheezein dekh kar WhatsApp par order karenge.*"
   )
   st.markdown("---")
 
