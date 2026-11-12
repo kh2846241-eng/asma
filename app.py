@@ -1,7 +1,7 @@
 import os
 import streamlit as st
 
-# Page Configuration - سائیڈ بار کو موبائل پر ڈیفالٹ بند رکھنے کے لیے
+# Page Configuration - سائیڈ بار کو موبائل پر بائی ڈیفالٹ بند رکھنے کے لیے
 st.set_page_config(
     page_title="SCS Cosmetics (ASMA)",
     page_icon="🌸",
@@ -34,8 +34,7 @@ password = st.sidebar.text_input(
 )
 
 # Define Admin Password
-ADMIN_PASSWORD = "Khizar jaan"
-is_admin = password == ADMIN_PASSWORD
+ADMIN_PASSWORD = "KHIZARجان"
 
 # App Header
 st.markdown(
@@ -48,62 +47,103 @@ st.markdown(
 )
 st.markdown("---")
 
-# Products Section
+# Password Validation Logic
+if password:
+  if password == ADMIN_PASSWORD:
+    st.sidebar.success("✅ پاسورڈ درست ہے! آپ ایڈمن موڈ میں ہیں۔")
+    is_admin = True
+  else:
+    st.sidebar.error("❌ غلط پاسورڈ! براہ کرم درست پاسورڈ درج کریں۔")
+    is_admin = False
+else:
+  is_admin = False
+
+# ----------------- ADMIN PRODUCT UPLOAD SYSTEM -----------------
+if is_admin:
+  st.markdown(
+      "### 🛠️ Admin Dashboard: Add New Product / نئی پروڈکٹ شامل کریں"
+  )
+  with st.form("product_form"):
+    p_name = st.text_input("پروڈکٹ کا نام (Product Name)")
+    p_desc = st.text_area("تفصیل (Description)")
+    p_price = st.text_input("قیمت (Price in IQD)")
+    p_image = st.file_uploader(
+        "پروڈکٹ کی تصویر اپلوڈ کریں (Upload Image)", type=["jpg", "png", "jpeg"]
+    )
+    submit_button = st.form_submit_button(
+        label="پروڈکٹ لائیو کریں (Save Product)"
+    )
+
+    if submit_button:
+      if p_name and p_price:
+        # Save uploaded image locally if provided
+        if p_image is not None:
+          os.makedirs("uploaded_images", exist_ok=True)
+          img_path = os.path.join("uploaded_images", p_image.name)
+          with open(img_path, "wb") as f:
+            f.write(p_image.getbuffer())
+          st.success(
+              f"پروڈکٹ '{p_name}' اور تصویر کامیابی کے ساتھ محفوظ ہو گئی ہے!"
+          )
+        else:
+          st.success(f"پروڈکٹ '{p_name}' کامیابی کے ساتھ محفوظ ہو گئی ہے!")
+      else:
+        st.warning("براہ کرم کم از کم پروڈکٹ کا نام اور قیمت درج کریں۔")
+  st.markdown("---")
+
+# ----------------- DISPLAY PRODUCTS SECTION -----------------
 st.markdown("### 🛍️ Available Products / پروڈکٹس")
 
-# Product 1: Anti-Melasma Gel
+# Default Products Display (Example / Sample Products)
 col1, col2 = st.columns(2)
 with col1:
-    st.markdown("#### Anti-Melasma Gel")
-    st.markdown("پگمنٹیشن اور چھائیوں کے لیے بہترین جیل")
-    st.markdown("*قیمت:* 1920 IQD")
-    st.markdown(
-        "[🛒 واٹس ایپ پر آرڈر کریں](https://wa.me/9647864607927?text=Hi,%20I%20want%20to%20order%20Anti-Melasma%20Gel)"
-    )
+  st.markdown("#### Anti-Melasma Gel")
+  st.markdown("پگمنٹیشن اور چھائیوں کے لیے بہترین جیل")
+  st.markdown("*قیمت:* 1920 IQD")
+  st.markdown(
+      "[🛒 واٹس ایپ پر آرڈر"
+      " کریں](https://wa.me/9647864607927?text=Hi,%20I%20want%20to%20order%20Anti-Melasma%20Gel)"
+  )
 
 with col2:
-    # تصویر کے پاتھ کا درست طریقہ
-    if os.path.exists("gel.jpg"):
-        st.image("gel.jpg", use_column_width=True)
-    else:
-        st.info("تصویر دستیاب نہیں (gel.jpg)")
+  if os.path.exists("gel.jpg"):
+    st.image("gel.jpg", use_column_width=True)
+  else:
+    st.info("تصویر دستیاب نہیں (gel.jpg)")
 
 st.markdown("---")
 
-# Product 2: Rose Face Wash
 col3, col4 = st.columns(2)
 with col3:
-    st.markdown("#### Rose Face Wash")
-    st.markdown("روز فیس واش / جلد کی گہرائی سے صفائی")
-    st.markdown("*قیمت:* 960 IQD")
-    st.markdown(
-        "[🛒 واٹس ایپ پر آرڈر کریں](https://wa.me/9647864607927?text=Hi,%20I%20want%20to%20order%20Rose%20Face%20Wash)"
-    )
+  st.markdown("#### Rose Face Wash")
+  st.markdown("روز فیس واش / جلد کی گہرائی سے صفائی")
+  st.markdown("*قیمت:* 960 IQD")
+  st.markdown(
+      "[🛒 واٹس ایپ پر آرڈر"
+      " کریں](https://wa.me/9647864607927?text=Hi,%20I%20want%20to%20order%20Rose%20Face%20Wash)"
+  )
 
 with col4:
-    if os.path.exists("facewash.jpg"):
-        st.image("facewash.jpg", use_column_width=True)
-    else:
-        st.info("تصویر دستیاب نہیں (facewash.jpg)")
+  if os.path.exists("facewash.jpg"):
+    st.image("facewash.jpg", use_column_width=True)
+  else:
+    st.info("تصویر دستیاب نہیں (facewash.jpg)")
 
 st.markdown("---")
 
-# Admin Section (Visible only when correct password is entered)
+# Official Link Section for Admin
 if is_admin:
-    st.success("✅ آپ ایڈمن مود (Admin Mode) میں داخل ہو چکے ہیں!")
-    st.markdown("---")
-    st.markdown("### 🔗 ٹک ٹاک بائیو اور شیئرنگ کے لیے آفیشل لنک")
-    st.markdown(
-        "یہ آپ کی ایپ کا لائیو لنک ہے۔ اسماء یہاں سے لنک کاپی کر کے ٹک ٹاک بائیو میں لگایا کرے گی[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span):"
-    )
-
-    # Official Permanent Live Link Box
-    st.code("https://asma-scs-cosmetics.streamlit.app", language="text")
-
-    st.markdown(
-        "💡 اس لنک پر عام کسٹمرز کے لیے کوئی پاسورڈ نہیں ہوگا، وہ براہ راست چیزیں دیکھ کر واٹس ایپ پر آرڈر کریں گے۔"
-    )
-    st.markdown("---")
+  st.markdown("### 🔗 ٹک ٹاک بائیو اور شیئرنگ کے لیے آفیشل لنک")
+  st.markdown(
+      "یہ آپ کی ایپ کا لائیو لنک ہے۔ اسماء یہاں سے لنک کاپی کر کے ٹک ٹاک بائیو میں"
+      " لگایا کرے گی[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span):"
+  )
+  st.code("https://asma-scs-cosmetics.streamlit.app", language="text")
+  st.markdown(
+      "💡 *اس لنک پر عام کسٹمرز کے لیے کوئی پاسورڈ نہیں ہوگا، وہ براہ راست چیزیں"
+      " دیکھ کر واٹس ایپ پر آرڈر کریں گے۔*"
+  )
+  st.markdown("---")
 
 # Footer
 st.markdown(
