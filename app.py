@@ -1,7 +1,7 @@
 import os
 import streamlit as st
 
-# Page Configuration - سائیڈ بار کو موبائل پر بائی ڈیفالٹ بند رکھنے کے لیے
+# Page Configuration
 st.set_page_config(
     page_title="SCS Cosmetics (ASMA)",
     page_icon="🌸",
@@ -76,7 +76,6 @@ if is_admin:
 
     if submit_button:
       if p_name and p_price:
-        # Save uploaded image locally if provided
         if p_image is not None:
           os.makedirs("uploaded_images", exist_ok=True)
           img_path = os.path.join("uploaded_images", p_image.name)
@@ -94,7 +93,6 @@ if is_admin:
 # ----------------- DISPLAY PRODUCTS SECTION -----------------
 st.markdown("### 🛍️ Available Products / پروڈکٹس")
 
-# Default Products Display (Example / Sample Products)
 col1, col2 = st.columns(2)
 with col1:
   st.markdown("#### Anti-Melasma Gel")
@@ -131,12 +129,11 @@ with col4:
 
 st.markdown("---")
 
-# Official Link Section for Admin
 if is_admin:
   st.markdown("### 🔗 ٹک ٹاک بائیو اور شیئرنگ کے لیے آفیشل لنک")
   st.markdown(
       "یہ آپ کی ایپ کا لائیو لنک ہے۔ اسماء یہاں سے لنک کاپی کر کے ٹک ٹاک بائیو میں"
-      " لگایا کرے گی[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span):"
+      " لگایا کرے گی:"
   )
   st.code("https://asma-scs-cosmetics.streamlit.app", language="text")
   st.markdown(
@@ -145,7 +142,6 @@ if is_admin:
   )
   st.markdown("---")
 
-# Footer
 st.markdown(
     """
     <div style='text-align: center; color: gray; font-size: 12px;'>
