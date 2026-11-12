@@ -34,7 +34,7 @@ password = st.sidebar.text_input(
 )
 
 # Define Admin Password
-ADMIN_PASSWORD = "KHIZARجان"
+ADMIN_PASSWORD = "Khizar jaan"
 is_admin = password == ADMIN_PASSWORD
 
 # App Header
