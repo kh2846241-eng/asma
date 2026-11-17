@@ -121,7 +121,7 @@ if is_admin:
   with st.form("product_form", clear_on_submit=True):
     p_name = st.text_input("پروڈکٹ کا نام (Product Name)")
     p_desc = st.text_area("تفصیل (Description)")
-    p_price = st.text_input("قیمت (Price in IQD)")
+    p_price = st.text_input("قیمت (Price in Rs)")
     p_image = st.file_uploader(
         "پروڈکٹ کی تصویر اپلوڈ کریں (Upload Image)", type=["jpg", "png", "jpeg"]
     )
