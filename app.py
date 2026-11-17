@@ -198,7 +198,7 @@ else:
             key=f"edit_desc_{idx}",
         )
         edit_price = st.text_input(
-            "نئی قیمت درج کریں (IQD)",
+            "نئی قیمت درج کریں (Rs.)",
             value=prod["price"],
             key=f"edit_price_{idx}",
         )
